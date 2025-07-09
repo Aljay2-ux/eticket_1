@@ -1,5 +1,5 @@
 <script setup>
-import MyLayout from "@/Layouts/UserLayout.vue";
+import MDLayout from "@/Layouts/MDLayout.vue";
 import { usePage, router, Link } from "@inertiajs/vue3";
 const { props } = usePage();
 
@@ -26,10 +26,8 @@ const viewing = () => {
 };
 </script>
 <template>
-    <MyLayout>
-        <div class="flex justify-center">
-        <span class="text-blue-500 text-2xl font-bold">Welcome, {{ props.auth.user.name }}!</span>
-        </div>
+    <MDLayout>
+       
         <div class="relative shadow-md sm:rounded-lg">
             <div
                 class="flex flex-column sm:flex-row flex-wrap space-y-2 sm:space-y-0 items-center justify-between pb-4"
@@ -354,5 +352,5 @@ const viewing = () => {
                 </table>
             </div>
         </div>
-    </MyLayout>
+    </MDLayout>
 </template>

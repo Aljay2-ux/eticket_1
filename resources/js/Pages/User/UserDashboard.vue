@@ -1,10 +1,10 @@
 <script setup>
-import MyLayout from '@/Layouts/MyLayout.vue';
+import UserLayout from '@/Layouts/UserLayout.vue';
 
 </script>
 
 <template>
-    <MyLayout title="Dashboard">
+    <UserLayout title="Dashboard">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 User Dashboard
@@ -18,5 +18,5 @@ import MyLayout from '@/Layouts/MyLayout.vue';
                 </div>
             </div>
         </div>
-    </MyLayout>
+    </UserLayout>
 </template>

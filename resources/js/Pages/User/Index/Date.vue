@@ -1,5 +1,5 @@
 <script setup>
-import MyLayout from "@/Layouts/MyLayout.vue";
+import MyLayout from "@/Layouts/UserLayout.vue";
 import { usePage } from "@inertiajs/vue3";
 import { reactive, ref } from "vue";
 

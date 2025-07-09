@@ -1,5 +1,5 @@
 <script setup>
-import MyLayout from '@/Layouts/MyLayout.vue';
+import MyLayout from '@/Layouts/UserLayout.vue';
 import { usePage, router} from '@inertiajs/vue3';
 const { props } = usePage();
 

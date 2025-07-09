@@ -224,7 +224,7 @@ const logout = () => {
                     <ul class="space-y-2">
                         <li>
                             <Link
-                                :href="route('my-request')"
+                                :href="route('user.dashboard')"
                                 class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 <svg
@@ -244,7 +244,7 @@ const logout = () => {
                                         d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
                                     />
                                 </svg>
-                                <span class="ml-3">My Request</span>
+                                <span class="ml-3">Request List</span>
                             </Link>
                         </li>
                         <li>
@@ -269,7 +269,7 @@ const logout = () => {
                                         d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
                                     />
                                 </svg>
-                                <span class="ml-3">Request</span>
+                                <span class="ml-3">Request Completed</span>
                             </Link>
                         </li>
                         <li>

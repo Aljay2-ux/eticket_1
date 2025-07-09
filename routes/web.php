@@ -63,33 +63,33 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
 
 
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
-    Route::get('/myrequest', function () {
-        return Inertia::render('User/MyRequest', [
-            'can' => [
-                'deleteUser' => Auth::user()->email === 'admin@gmail.com'
-            ],
-            'assets_1' => IctServiceRequest::get()->map(
-                function ($inner) {
-                    return [
-                        'requested_by' => $inner->requested_by,
-                        'date_requested' => $inner->date_requested,
-                        'date_completed' => $inner->date_completed,
-                        'remarks' => $inner->remarks,
-                        'date_needed' => $inner->date_needed,
-                        'ict_technician_id' => $inner->ict_technician ? ($inner->ict_technician->employee ?
-                            $inner->ict_technician->employee->last_name . " " . $inner->ict_technician->employee->first_name
-                            : 'No Employee Assigned') : 'No Technician Assigned',
-                        'request_type' => $inner->requestType->name,
-                        'description' => $inner->description_of_request
+    // Route::get('/myrequest', function () {
+    //     return Inertia::render('User/MyRequest', [
+    //         'can' => [
+    //             'deleteUser' => Auth::user()->email === 'admin@gmail.com'
+    //         ],
+    //         'assets_1' => IctServiceRequest::get()->map(
+    //             function ($inner) {
+    //                 return [
+    //                     'requested_by' => $inner->requested_by,
+    //                     'date_requested' => $inner->date_requested,
+    //                     'date_completed' => $inner->date_completed,
+    //                     'remarks' => $inner->remarks,
+    //                     'date_needed' => $inner->date_needed,
+    //                     'ict_technician_id' => $inner->ict_technician ? ($inner->ict_technician->employee ?
+    //                         $inner->ict_technician->employee->last_name . " " . $inner->ict_technician->employee->first_name
+    //                         : 'No Employee Assigned') : 'No Technician Assigned',
+    //                     'request_type' => $inner->requestType->name,
+    //                     'description' => $inner->description_of_request
 
-                    ];
-                }
-            ),
-            'assets_2' => IctServiceRequest::all()
+    //                 ];
+    //             }
+    //         ),
+    //         'assets_2' => IctServiceRequest::all()
 
 
-        ]);
-    })->name('my-request');
+    //     ]);
+    // })->name('my-request');
     Route::get('/request', function () {
         return Inertia::render('User/Index/RequestForm', [
             'assets' => IctInventory::get()->map(
