@@ -8,17 +8,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 
 class SocialController extends Controller
 {
-    public function redirect($provider) {
+    public function redirect($provider)
+    {
         return Socialite::driver($provider)->redirect();
     }
 
-    public function callback($provider) {
+    public function callback($provider)
+    {
         // return Socialite::driver('google')->redirect();
-        $socialUser = Socialite::driver($provider) ->user();
+        $socialUser = Socialite::driver($provider)->user();
 
         $user = User::where('email',  $socialUser->getEmail())->first();
         $name = $socialUser->getNickname() ?? $socialUser->getName();
@@ -30,40 +32,40 @@ class SocialController extends Controller
                 'email' => $socialUser->getEmail(),
                 'password' => Hash::make(Str::random(7)),
             ]);
-                //create socials for user
+            //create socials for user
             $user->socials()->create([
-                'provider-id' => $socialUser -> getId(),
+                'provider-id' => $socialUser->getId(),
                 'provider' => $provider,
-                'provider_token' =>  $socialUser -> token,
-                'provider-refresh_token' =>$socialUser -> refreshToken
+                'provider_token' =>  $socialUser->token,
+                'provider-refresh_token' => $socialUser->refreshToken
             ]);
 
-            
-        // dd($provider, $user);
-    }
 
-    //if user does exist
+            // dd($provider, $user);
+        }
 
-    $socials = Social::where('provider', $provider)
-                    ->where('user_id', $user->id)->first();
+        //if user does exist
+
+        $socials = Social::where('provider', $provider)
+            ->where('user_id', $user->id)->first();
 
         //check if user doesn't have socials
 
-        if(!$socials){
+        if (!$socials) {
 
-            $user ->socials()->create([
-                'provider-id' => $socialUser -> getId(),
+            $user->socials()->create([
+                'provider-id' => $socialUser->getId(),
                 'provider' => $provider,
-                'provider_token' =>  $socialUser -> token,
-                'provider-refresh_token' =>$socialUser -> refreshToken
+                'provider_token' =>  $socialUser->token,
+                'provider-refresh_token' => $socialUser->refreshToken
             ]);
         }
         //login user
 
         Auth::login($user);
-        
+
         return redirect('/');
-}
+    }
 }
 
 

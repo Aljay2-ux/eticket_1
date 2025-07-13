@@ -1,5 +1,5 @@
 <script setup>
-import MyLayout from "@/Layouts/UserLayout.vue";
+import UserLayout from "@/Layouts/UserLayout.vue";
 import { usePage, router } from "@inertiajs/vue3";
 const { props } = usePage();
 
@@ -21,7 +21,7 @@ const viewing = () => {
 };
 </script>
 <template>
-    <MyLayout>
+    <UserLayout>
         <div class="relative shadow-md sm:rounded-lg">
             <div class="overflow-x-auto">
                 <table
@@ -77,5 +77,5 @@ const viewing = () => {
                 </table>
             </div>
         </div>
-    </MyLayout>
+    </UserLayout>
 </template>

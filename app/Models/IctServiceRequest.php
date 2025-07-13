@@ -31,6 +31,8 @@ class IctServiceRequest extends Model
         'description_of_request', 
         'ict_service_request_type_id',
         'ict_inventory_id',
+        'created_by',
+        'ict_service_request_status_id',
     ];
 
      protected static function boot()
@@ -47,7 +49,7 @@ class IctServiceRequest extends Model
         return $this->belongsTo(IctServiceRequestType::class, 'ict_service_request_type_id');
     }
 
-    public function ict_inventory_id(): BelongsTo {
+    public function ict_inventory(): BelongsTo {
         return $this->belongsto(IctInventory::class, 'ict_inventory_id');
     }
 
@@ -59,7 +61,7 @@ class IctServiceRequest extends Model
         return $this->belongsto(IctInventoryStatus::class, 'ict_unit_status_id');
     }
 
-    public function ict_request_status_id(): BelongsTo {
+    public function ict_request_status(): BelongsTo {
         return $this->belongsto(IctServiceRequestStatus::class, 'ict_request_status_id');
     }
 
@@ -73,5 +75,8 @@ class IctServiceRequest extends Model
 
     public function deleted_by(): BelongsTo {
         return $this->belongsto(User::class, 'deleted_by');
+    }
+    public function ict_equipment_type(): BelongsTo {
+        return $this->belongsto(IctEquipmentType::class, 'ict_equipment_type_id');
     }
 }

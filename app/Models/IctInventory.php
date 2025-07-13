@@ -20,6 +20,7 @@ class IctInventory extends Model
         'code',
         'serial_no',
         'aquisition_cost',
+        'status_id'
 
 
     ];

@@ -14,7 +14,7 @@ const logout = () => {
     <section
         class="flex w-[calc(70%+8rem)] bg-white py-8 antialiased dark:bg-gray-900 md:py-16"
     >
-        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <div class="mx-auto max-w-full px-20 2xl:px-0">
             <nav class="mb-4 flex" aria-label="Breadcrumb">
                 <ol
                     class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
@@ -102,7 +102,7 @@ const logout = () => {
             >
                 Service Request Form
             </h2>
-            <div class="gap-8 lg:flex">
+            <div class="gap-2.5 lg:flex">
                 <aside
                     id="sidebar"
                     class="hidden h-full w-80 shrink-0 overflow-y-auto border border-gray-200 bg-white p-3 shadow-sm dark:border-gray-700 dark:bg-gray-800 lg:block lg:rounded-lg"
@@ -302,7 +302,7 @@ const logout = () => {
                     </ul>
                 </aside>
 
-                <main>
+                <main class="border py-2 min-w-full">
                     <slot />
                 </main>
             </div>

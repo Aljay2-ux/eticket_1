@@ -29,7 +29,7 @@ class IctServiceRequestController extends Controller
     // }
 
 
-     public function store(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'description_of_request' => 'required|string',
@@ -53,6 +53,4 @@ class IctServiceRequestController extends Controller
 
         return redirect('/request/defect/date/confirmation')->with('success', 'Request Submitted');
     }
-
-   
 }

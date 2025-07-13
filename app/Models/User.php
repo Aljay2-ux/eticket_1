@@ -89,4 +89,10 @@ class User extends Authenticatable
     public function ict_service_request(): HasOne {
         return $this->hasOne(IctServiceRequest::class);
     }
+
+    public function ict_service_request_status(): HasOne {
+        return $this->hasOne(IctServiceRequestStatus::class);
+    }
+    
+    
 }
