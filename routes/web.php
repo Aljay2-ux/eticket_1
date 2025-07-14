@@ -58,19 +58,22 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:user']], function () {
 
+    Route::post('/view/request', [UserController::class, 'showTicket'])->name('view.request');
     Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
     Route::get('/request', [RequestController::class, 'index'])->name('request.dashboard');
-    Route::get('/hey/dashboard', [DefectConfirmationController::class, 'index'])->name('user.dashboard');
-    Route::get('/heyw/dashboard', [DateAndTimeConfirmationController::class, 'index'])->name('user.dashboard');
-    Route::get('/heyehey/dashboard', [RequestConfirmationController::class, 'index'])->name('user.dashboard');
-
-    Route::get('/tickets/{id}', [UserController::class, 'show']);
+    Route::get('/request/defect', [DefectConfirmationController::class, 'index'])->name('defect.dashboard');
+    Route::get('/request/defect/date', [DateAndTimeConfirmationController::class, 'index'])->name('date.dashboard');
+    Route::get('request/defect/date/confirmation', [RequestConfirmationController::class, 'index']);
+    Route::post('/request/defect/date', [DateAndTimeConfirmationController::class, 'store']);
+    // Route::get('/tickets/{id}', [UserController::class, 'show']);
 });
 
 Route::group(['middleware' => ['auth', 'role:mis-director']], function () {
 
 
     Route::get('/misdirector/dashboard', [MisDirectorController::class, 'index'])->name('mis-director.dashboard');
+    Route::post('/aprroved/dashboard', [MisDirectorController::class, 'store'])->name('approved');
+    Route::post('/view/request_list', [UserController::class, 'showTicket'])->name('view.request_list');
 });
 
 Route::group(['middleware' => ['auth', 'role:technician']], function () {

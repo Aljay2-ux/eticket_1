@@ -33,6 +33,8 @@ class IctServiceRequest extends Model
         'ict_inventory_id',
         'created_by',
         'ict_service_request_status_id',
+        'ict_technician_id',
+        
     ];
 
      protected static function boot()
@@ -78,5 +80,9 @@ class IctServiceRequest extends Model
     }
     public function ict_equipment_type(): BelongsTo {
         return $this->belongsto(IctEquipmentType::class, 'ict_equipment_type_id');
+    }
+
+    public function employee(): BelongsTo {
+        return $this->belongsto(Employee::class, 'employee_id');
     }
 }

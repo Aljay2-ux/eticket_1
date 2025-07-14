@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\IctInventory;
 use App\Models\IctServiceRequestStatus;
+use App\Models\IctServiceRequestType;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -17,13 +18,14 @@ class DefectConfirmationController extends Controller
                         'code' => $inner->code,
                         'equipment_type' => $inner->ict_equipment_type->name,
                         'date_acquired' => $inner->date_acquired,
-                        
+                        'id' => $inner->id,
 
                     ];
                 }
 
             ),
-            'ict_service_request_status_id' => IctServiceRequestStatus::all(),
+            'ict_service_request_type_id' => IctServiceRequestType::all(),
+            'asset_id' => $request->input("asset_id"),
             
         ]);
     }

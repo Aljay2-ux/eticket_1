@@ -249,7 +249,7 @@ const logout = () => {
                         </li>
                         <li>
                             <Link
-                                :href="route('request')"
+                                :href="route('request.dashboard')"
                                 class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 <svg

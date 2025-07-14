@@ -6,10 +6,10 @@ const { props } = usePage();
 </script>
 
 <template>
-    <div v-if="props.assets_1.links.length > 0">
+    <div v-if="props.request_list.links.length > 0">
         <div class="flex flex-wrap -mb-1">
             <template
-                v-for="(link, linkIndex) in props.assets_1.links"
+                v-for="(link, linkIndex) in props.request_list.links"
                 :key="linkIndex"
             >
                 <div

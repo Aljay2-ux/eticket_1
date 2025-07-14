@@ -36,7 +36,7 @@ class Employee extends Model
         return $this->belongsto(Department::class, 'department_id');
     }
 
-    public function division_id(): BelongsTo {
+    public function division(): BelongsTo {
         return $this->belongsto(Division::class, 'division_id');
     }
 
@@ -58,5 +58,9 @@ class Employee extends Model
 
     public function work_day_id(): BelongsTo {
         return $this->belongsto(WorkDay::class, 'work_day_id');
+    }
+
+    public function ict_service_request(): HasOne {
+        return $this->hasOne(IctServiceRequest::class);
     }
 }

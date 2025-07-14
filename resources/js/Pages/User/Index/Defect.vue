@@ -96,7 +96,7 @@ const submit_h1 = () => {
                     service requested</label>
                 <select v-model="form.ict_service_request_type_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option v-for="request_type in props.request_types" :key="request_type.id" :value="request_type.id">
+                    <option v-for="request_type in props.ict_service_request_type_id" :key="request_type.id" :value="request_type.id">
                         {{ request_type.name }}
                     </option>
                 </select>

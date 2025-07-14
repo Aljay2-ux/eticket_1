@@ -12,9 +12,9 @@ const logout = () => {
 
 <template>
     <section
-        class="flex w-[calc(70%+8rem)] bg-white py-8 antialiased dark:bg-gray-900 md:py-16"
+        class="flex w-[calc(70%+12rem)] bg-white py-8 antialiased dark:bg-gray-900 md:py-16"
     >
-        <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <div class="mx-auto max-w-screen-xl px-20 2xl:px-0">
             <nav class="mb-4 flex" aria-label="Breadcrumb">
                 <ol
                     class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse"
@@ -249,7 +249,7 @@ const logout = () => {
                         </li>
                         <li>
                             <Link
-                                :href="route('request')"
+                                :href="route('request.dashboard')"
                                 class="group flex items-center rounded-lg p-2 text-base font-medium text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                             >
                                 <svg
