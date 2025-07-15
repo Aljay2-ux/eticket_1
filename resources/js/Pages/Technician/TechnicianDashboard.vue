@@ -1,13 +1,14 @@
 <script setup>
 import MDLayout from "@/Layouts/MDLayout.vue";
 import { usePage, router, Link } from "@inertiajs/vue3";
+import Pagination from "./Pagination.vue";
 const { props } = usePage();
 
 let submit = () => {
     router.post("/status");
 };
 
-const can = usePage (()=> props.auth.can);
+const can = usePage(() => props.auth.can);
 //   const createUser= (values, { resetForm}) => {
 //     axios.post('/request/my-request', values)
 //     .then((response)) => {
@@ -28,7 +29,9 @@ const viewing = () => {
 <template>
     <MDLayout>
         <div class="flex justify-center">
-        <span class="text-blue-500 text-2xl font-bold">Welcome, {{ props.auth.user.name }}!</span>
+            <span class="text-blue-500 text-2xl font-bold"
+                >Welcome, {{ props.auth.user.name }}!</span
+            >
         </div>
         <div class="relative shadow-md sm:rounded-lg">
             <div
@@ -236,11 +239,11 @@ const viewing = () => {
                                 Description of Findings
                             </th> -->
                             <th scope="col" class="px-6 py-3">Remarks</th>
-                            <th scope="col" class="px-6 py-3">Technician</th>
+
                             <th scope="col" class="px-6 py-3">Status</th>
                             <th
                                 scope="col"
-                                class="flex justify-end px-6 py-3 py-6"
+                                class="flex  px-9 py-3 py-6"
                             >
                                 Action
                             </th>
@@ -249,14 +252,14 @@ const viewing = () => {
                     <tbody>
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
-                            v-for="assets_1 in props.assets_1"
-                            :key="assets_1.id"
+                            v-for="list in props.request_list.data"
+                            :key="list.id"
                         >
                             <th
                                 scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                             >
-                                {{ assets_1.requested_by }}
+                                {{ list.requested_by }}
                             </th>
                             <!-- <td class="px-6 py-4">
                                 {{ assets_1.request_type }}
@@ -273,15 +276,12 @@ const viewing = () => {
                             <td class="px-6 py-4">
                                 {{ assets_1.date_needed }}
                             </td> -->
-                            <td class="px-6 py-4">
-                                {{ assets_1.ict_technician_id }}
-                            </td>
+                            <td class="px-6 py-4"></td>
                             <!-- <td class="px-6 py-4">
                                 {{}}
                             </td> -->
-                            <td class="px-6 py-4">
-                                {{ assets_1.remarks }}
-                            </td>
+                            <td class="px-6 py-4"></td>
+                            
                             <!-- <td class="px-6 py-4">
                                 {{}}
                             </td>
@@ -293,6 +293,12 @@ const viewing = () => {
                     <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a>
                 </td> -->
                             <td class="px-5 py-2">
+                                <Link :href="route('hey.dashboard')"
+                                    type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                >
+                                    Repaired
+                            </Link>
                                 <!-- <button @click="viewing">
                                     <img
                                         class="w-1/2"
@@ -326,7 +332,7 @@ const viewing = () => {
                                         </a>
                                     </span>
                                 </button> -->
-                                <button 
+                                <!-- <button 
                                     class="relative min-w-full h-10 w-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                     type="button"
                                 >
@@ -341,12 +347,13 @@ const viewing = () => {
                                             DELETE
                                         </a>
                                     </span>
-                                </button>
+                                </button> -->
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <Pagination class="mt-4" />
         </div>
     </MDLayout>
 </template>

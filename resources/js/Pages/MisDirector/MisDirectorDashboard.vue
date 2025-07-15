@@ -11,14 +11,15 @@ const { props } = usePage();
 const tickets = ref("");
 const can = usePage(() => props.auth.can);
 const formData = ref({
-    ict_technician_id: ''
+    ict_technician_id: "",
+    request_id: '',
 });
-const message = ref('');
+const message = ref("");
 // let submit = () => {
 //     router.post("/status");
 // };
 const openDialog = () => {
-  dialogVisible.value = true;
+    dialogVisible.value = true;
 };
 
 //   const createUser= (values, { resetForm}) => {
@@ -38,42 +39,81 @@ const viewing = () => {
     router.get("/request/viewing");
 };
 
-const approved_request = async (request_id) =>
-{
-    
-
-        formData.value.request_id = request_id
-        dialogVisible.value = true
-}
-const submitForm = async () => {
-  // Log the form data to debug
-  console.log('Submitting form with data:', formData.value); // Ensure this is the correct reference
-
-  try {
-    // Send only the necessary properties
-    const response = await axios.post('/aprroved/dashboard', {
-      ict_technician_id: formData.value.ict_technician_id,
-      request_id: formData.value.request_id
-    });
-    
-    message.value = 'Form submitted successfully: ' + response.data.message;
-    dialogVisible.value = false; // Close the dialog on success
-  } catch (error) {
-    if (error.response) {
-      // Log the error details
-      console.error('Error response:', error.response.data);
-      message.value = 'Error submitting form: ' + (error.response.data.message || 'Unknown error');
-    } else {
-      message.value = 'Error submitting form: ' + error.message;
-    }
-  }
+const approved_request = async (request_id) => {
+    formData.value.request_id = request_id;
+    dialogVisible.value = true;
 };
+// const submitForm = async () => {
+//   // Log the form data to debug
+//   console.log('Submitting form with data:', formData.value); // Ensure this is the correct reference
+
+//   try {
+//     // Send only the necessary properties
+//     const response = await axios.post('/aprroved/dashboard', {
+//       ict_technician_id: formData.value.ict_technician_id,
+//       request_id: formData.value.request_id
+//     });
+
+//     message.value = 'Form submitted successfully: ' + response.data.message;
+//     dialogVisible.value = false;
+//   } catch (error) {
+//     if (error.response) {
+
+//       console.error('Error response:', error.response.data);
+//       message.value = 'Error submitting form: ' + (error.response.data.message || 'Unknown error');
+//     } else {
+//       message.value = 'Error submitting form: ' + error.message;
+//     }
+//   }
+// };
+
+const submitForm = async () => {
+    console.log("Submitting form with data:", formData.value); 
+    console.log("Available Technicians:", props.tech);
+    console.log("Submitting form with technician ID:", formData.value.ict_technician_id);
+
+    try {
+        const response = await axios.post("/store/technician", {
+            ict_technician_id: formData.value,
+            request_id: formData.value.request_id, 
+        });
+
+        message.value = "Form submitted successfully: " + response.data.message;
+        dialogVisible.value = false;
+    } catch (error) {
+        if (error.response) {
+            console.error("Error response:", error.response.data);
+            message.value =
+                "Error submitting form: " +
+                (error.response.data.message || "Unknown error");
+        } else {
+            message.value = "Error submitting form: " + error.message;
+        }
+    }
+
+    
+};
+
+// const submitTechnician = async () => {
+//     try {
+//         const response = await axios.post("/store/technician", {
+//             ict_technician_id: formData.value.ict_technician_id, // Ensure this is the correct technician ID
+//             request_id: formData.value.request_id, 
+//         });
+
+//         message.value = "Technician assigned successfully: " + response.data.message;
+//         dialogVisible.value = false; // Close the dialog on success
+//     } catch (error) {
+//         console.error("Error assigning technician:", error);
+        
+//     }
+// };
 
 const fetchTickets = async (id) => {
     try {
         const response = await axios.post("/view/request_list", {
             request_id: id,
-        }); // Adjust the endpoint as needed
+        });
         tickets.value = response.data;
         dialogVisible1.value = true;
     } catch (error) {
@@ -94,7 +134,7 @@ const fetchTickets = async (id) => {
                         <h2
                             class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl"
                         >
-                            <!-- Request List {{ props.ict_technicians.ict_technicianss }} -->
+                            Request List
                         </h2>
 
                         <div
@@ -168,9 +208,7 @@ const fetchTickets = async (id) => {
                                     <dd
                                         class="mt-1.5 text-base font-semibold text-gray-900 dark:text-white"
                                     >
-                                        <!-- <a href="#" class="hover:underline">{{
-                                            assets_1.id
-                                        }}</a> -->
+                                       
 
                                         {{ request_list.id }}
                                     </dd>
@@ -221,16 +259,13 @@ const fetchTickets = async (id) => {
                                 <div
                                     class="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4"
                                 >
-                                    <!-- <button
-                                        type="button"
-                                        class="w-full rounded-lg border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto"
-                                    >
-                                        Appoved
-                                    </button> -->
+                                   
 
                                     <el-button
                                         plain
-                                        @click="approved_request(request_list.id)"
+                                        @click="
+                                            approved_request(request_list.id)
+                                        "
                                     >
                                         Approved
                                     </el-button>
@@ -241,11 +276,7 @@ const fetchTickets = async (id) => {
                                     >
                                         Disapproved
                                     </button>
-                                    <!-- <a
-                                        href="#"
-                                        class="w-full inline-flex justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto"
-                                        >View details</a
-                                    > -->
+                                    
                                     <el-button
                                         plain
                                         @click="fetchTickets(request_list.id)"
@@ -302,66 +333,49 @@ const fetchTickets = async (id) => {
                 </div>
             </template>
             <div class="relative w-full max-w-sm max-h-full">
-                <!-- Modal content -->
+                
                 <div
                     class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700"
                 >
-                    <!-- Modal header -->
-
-                    <!-- Modal body -->
-                    <form @submit.prevent="submitForm" class="p-4 md:p-5">
-        <div class="grid gap-4 mb-4 grid-cols-2">
-          <div class="col-span-2 sm:col-span-1 w-[calc(100%+8rem)]">
-            <label for="technician" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technician</label>
-            <select
-              v-model="formData.ict_technician_id"
-              id="technician"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            >
-              <option v-for="ict_technician in props.tech">
-                {{ ict_technician.technicians }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-       
-
-        <el-form-item>
-          <el-button type="primary" native-type="submit">Submit</el-button>
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-        </el-form-item>
-      </form>
-      <p v-if="message">{{ message }}</p>
-                        <!-- <button
-                            type="submit"
-                            class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                            <svg
-                                class="me-1 -ms-1 w-5 h-5"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                            Add new product
-                        </button> -->
                     
+                    <form @submit.prevent="submitForm">
+                        <div class="grid gap-4 mb-4 grid-cols-2">
+                            <div
+                                class="col-span-2 sm:col-span-1 w-[calc(100%+8rem)]"
+                            >
+                                <label
+                                    for="technician"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >Technician</label
+                                >
+                                <select
+                                    v-model="formData.ict_technician_id"
+                                    id="technician"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                >
+                                    <option
+                                        v-for="ict_technician in props.tech" :key="ict_technician.id" :value="ict_technician.tech_id"
+                                    >
+                                        {{ ict_technician.technicians }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <el-form-item>
+                            <el-button type="primary" native-type="submit"
+                                >Submit</el-button
+                            >
+                            <el-button @click="dialogVisible = false"
+                                >Cancel</el-button
+                            >
+                        </el-form-item>
+                    </form>
+                    <p v-if="message">{{ message }}</p>
+                  
                 </div>
             </div>
-            <!-- <template #footer>
-                <div class="dialog-footer">
-                    <el-button @click="dialogVisible = false">Cancel</el-button>
-                    <el-button type="primary" @click="dialogVisible = false">
-                        Confirm
-                    </el-button>
-                </div>
-            </template> -->
+           
         </el-dialog>
 
         <el-dialog
@@ -404,11 +418,7 @@ const fetchTickets = async (id) => {
                     </button>
                 </div>
             </template>
-            <!-- component -->
-
-            <!-- component -->
-            <!-- component -->
-            <!-- This is an example component -->
+            
 
             <div class="md:flex">
                 <div class="md:pr-3 md:min-w-64 space-x-4">

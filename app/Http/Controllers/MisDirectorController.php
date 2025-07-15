@@ -64,7 +64,7 @@ class MisDirectorController extends Controller
             'tech' => IctTechnician::get()->map(
                 function ($inner) {
                     return [
-
+                        'tech_id' => $inner->employee->id,
                         'technicians' => $inner->employee->last_name . " " . $inner->employee->first_name
 
                     ];
@@ -137,4 +137,75 @@ class MisDirectorController extends Controller
 
         return (IctServiceRequest::where('id', $request->input('request_id'))->first());
     }
+
+//    public function storeTechnician(Request $request)
+// {
+//     // Validate the incoming request data
+//     $validator = Validator::make($request->all(), [
+//         'ict_technician_id' => 'required|exists:ict_request_requests,id', // Ensure technician ID exists
+//         'request_id' => 'required|exists:ict_service_requests,id', // Ensure request ID exists
+//     ]);
+
+//     // Check for validation errors
+//     if ($validator->fails()) {
+//         return response()->json($validator->errors(), 422);
+//     }
+
+//     // Find the service request by ID
+//     $serviceRequest = IctServiceRequest::find($request->input('request_id'));
+
+//     // Check if the service request exists
+//     if (!$serviceRequest) {
+//         return response()->json(['message' => 'Service request not found'], 404);
+//     }
+
+//     // Update the service request with the technician ID
+//     $serviceRequest->ict_technician_id = $request->input('ict_technician_id');
+//     $serviceRequest->save(); // Save changes
+
+//     // Return a success response
+//     return response()->json([
+//         'message' => 'Technician assigned successfully!',
+//         'data' => $serviceRequest, // Return the updated data
+//     ], 200);
+// }
+
+// public function storeTechnician(Request $request)
+// {
+//     try {
+//         \Log::info('Incoming request data:', $request->all());
+
+//         // Validate the incoming request data
+//         $validator = Validator::make($request->all(), [
+//             'ict_technician_id' => 'required|exists:ict_technicians,id',
+//             'request_id' => 'required|exists:ict_service_requests,id',
+//         ]);
+
+//         // Check for validation errors
+//         if ($validator->fails()) {
+//             return response()->json($validator->errors(), 422);
+//         }
+
+//         // Find the service request by ID
+//         $serviceRequest = IctServiceRequest::find($request->input('request_id'));
+
+//         // Check if the service request exists
+//         if (!$serviceRequest) {
+//             return response()->json(['message' => 'Service request not found'], 404);
+//         }
+
+//         // Update the service request with the technician ID
+//         $serviceRequest->ict_technician_id = $request->input('ict_technician_id');
+//         $serviceRequest->save(); // Save changes
+
+//         // Return a success response
+//         return response()->json([
+//             'message' => 'Technician assigned successfully!',
+//             'data' => $serviceRequest,
+//         ], 200);
+//     } catch (\Exception $e) {
+//         \Log::error('Error assigning technician: ' . $e->getMessage());
+//         return response()->json(['message' => 'An error occurred.'], 500);
+//     }
+// }
 }

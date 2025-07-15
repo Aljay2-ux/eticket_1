@@ -72,7 +72,7 @@ Route::group(['middleware' => ['auth', 'role:mis-director']], function () {
 
 
     Route::get('/misdirector/dashboard', [MisDirectorController::class, 'index'])->name('mis-director.dashboard');
-    Route::post('/aprroved/dashboard', [MisDirectorController::class, 'store'])->name('approved');
+    Route::post('/store/technician', [MisDirectorController::class, 'store'])->name('store.technician');
     Route::post('/view/request_list', [UserController::class, 'showTicket'])->name('view.request_list');
 });
 
@@ -80,6 +80,9 @@ Route::group(['middleware' => ['auth', 'role:technician']], function () {
 
 
     Route::get('/technician/dashboard', [TechnicianController::class, 'index'])->name('technician.dashboard');
+    Route::get('/submit/dashboard', function() {
+        return Inertia::render('Technician/CompletedWork');
+    })->name('hey.dashboard');
 });
 
 // ,'role:admin'

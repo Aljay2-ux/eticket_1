@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class IctTechnician extends Model
 {
+
+    protected $table = 'ict_technicians';
+    
     public function ict_service_request(): HasOne {
         return $this->hasOne(IctServiceRequest::class);
     }
@@ -15,4 +18,6 @@ class IctTechnician extends Model
     public function employee(): BelongsTo {
         return $this->belongsto(Employee::class, 'employee_id');
     }
+
+    
 }
